@@ -1,0 +1,110 @@
+﻿using CheeseMongers.Model;
+
+namespace Cheesemongers;
+
+public class Program
+{
+    private IList<CheeseMongersItem> Items;
+
+    public Program(IList<CheeseMongersItem> items)
+    {
+        Items = items;
+    }
+
+    public void UpdateQuality()
+    {
+        for (var i = 0; i < Items.Count; i++)
+        {
+            if (Items[i].Name != "Parmigiano Regiano" && Items[i].Name != "Tasting with Chef Massimo")
+            {
+                if (Items[i].Quality > 0)
+                {
+                    if (Items[i].Name != "Caciocavallo Podolico")
+                    {
+                        Items[i].Quality = Items[i].Quality - 1;
+                    }
+                }
+            }
+            else
+            {
+                if (Items[i].Quality < 100)
+                {
+                    Items[i].Quality = Items[i].Quality + 1;
+
+                    if (Items[i].Name == "Tasting with Chef Massimo")
+                    {
+                        if (Items[i].ValidByDays < 15)
+                        {
+                            if (Items[i].Quality < 100)
+                            {
+                                if (Items[i].Quality + 2 <= 100)
+                                {
+                                    Items[i].Quality = Items[i].Quality + 2;
+                                }
+                                else
+                                {
+                                    Items[i].Quality = 100;
+                                }
+                            }
+                        }
+
+                        if (Items[i].ValidByDays < 8)
+                        {
+                            if (Items[i].Quality < 100)
+                            {
+                                if (Items[i].Quality + 2 <= 100)
+                                {
+                                    Items[i].Quality = Items[i].Quality + 2;
+                                }
+                                else
+                                {
+                                    Items[i].Quality = 100;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (Items[i].Name != "Caciocavallo Podolico")
+            {
+                Items[i].ValidByDays = Items[i].ValidByDays - 1;
+            }
+
+            if (Items[i].ValidByDays < 0)
+            {
+                if (Items[i].Name != "Parmigiano Regiano")
+                {
+                    if (Items[i].Name != "Tasting with Chef Massimo")
+                    {
+                        if (Items[i].Quality > 0)
+                        {
+                            if (Items[i].Name != "Caciocavallo Podolico")
+                            {
+                                if (Items[i].Quality - 4 > 0)
+                                {
+                                    Items[i].Quality = Items[i].Quality - 4;
+                                }
+                                else
+                                {
+                                    Items[i].Quality = 0;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Items[i].Quality = Items[i].Quality - Items[i].Quality;
+                    }
+                }
+            }
+        }
+    }
+
+    static void Main(string[] args)
+    {
+
+        Console.WriteLine("Hello, CheeseMongers!");
+    }
+}
+
