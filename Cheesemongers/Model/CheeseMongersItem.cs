@@ -14,12 +14,9 @@ public class CheeseMongersItem
 
         if (!isParmigiano && !isTastingWithMassimo)
         {
-            if (Quality > 0)
+            if (!isCaciocavallo)
             {
-                if (!isCaciocavallo)
-                {
-                    Quality = Quality - 1;
-                }
+                DecreaseQuality(1);
             }
         }
         else
@@ -58,14 +55,7 @@ public class CheeseMongersItem
                     {
                         if (!isCaciocavallo)
                         {
-                            if (Quality - 4 > 0)
-                            {
-                                Quality = Quality - 4;
-                            }
-                            else
-                            {
-                                Quality = 0;
-                            }
+                            DecreaseQuality(4);
                         }
                     }
                 }
@@ -89,6 +79,21 @@ public class CheeseMongersItem
             {
                 Quality = 100;
             }
+        }
+    }
+
+    private void DecreaseQuality(int amount)
+    {
+        if (amount < 0)
+        {
+            throw new ArgumentOutOfRangeException("Amount must be non-negative.");
+        }
+
+        Quality -= amount;
+
+        if (Quality < 0)
+        {
+            Quality = 0;
         }
     }
 }
