@@ -1,4 +1,5 @@
-﻿using CheeseMongers.Model;
+﻿using Cheesemongers.Application;
+using CheeseMongers.Model;
 
 namespace Cheesemongers;
 
@@ -15,7 +16,15 @@ public class Program
     {
         foreach (CheeseMongersItem item in Items)
         {
-            item.UpdateItem();
+            IUpdateStrategy strategy = item.Name switch
+            {
+                "Parmigiano Regiano" => new ParmigianoRegianoStrategy(),
+                "Tasting with Chef Massimo" => new TastingWithMassimoStrategy(),
+                "Caciocavallo Podolico" => new CaciocavalloPodolicoStrategy(),
+                _ => new NormalCheeseStrategy()
+            };
+
+            strategy.Update(item);
         }
     }
        
@@ -25,4 +34,3 @@ public class Program
         Console.WriteLine("Hello, CheeseMongers!");
     }
 }
-
