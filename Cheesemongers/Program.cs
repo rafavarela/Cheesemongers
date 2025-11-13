@@ -94,7 +94,7 @@ public class Program
                     }
                     else
                     {
-                        item.Quality = item.Quality - item.Quality;
+                        item.Quality = 0;
                     }
                 }
             }
