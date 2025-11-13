@@ -1,6 +1,6 @@
 ﻿using CheeseMongers.Model;
 
-namespace Cheesemongers.Application;
+namespace Cheesemongers.Application.Strategies;
 
 public class CaciocavalloPodolicoStrategy : IUpdateStrategy
 {
