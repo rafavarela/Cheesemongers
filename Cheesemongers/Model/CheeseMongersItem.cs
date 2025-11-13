@@ -8,11 +8,15 @@ public class CheeseMongersItem
 
     public void UpdateItem()
     {
-        if (Name != "Parmigiano Regiano" && Name != "Tasting with Chef Massimo")
+        bool isParmigiano = Name == "Parmigiano Regiano";
+        bool isTastingWithMassimo = Name == "Tasting with Chef Massimo";
+        bool isCaciocavallo = Name == "Caciocavallo Podolico";
+
+        if (!isParmigiano && !isTastingWithMassimo)
         {
             if (Quality > 0)
             {
-                if (Name != "Caciocavallo Podolico")
+                if (!isCaciocavallo)
                 {
                     Quality = Quality - 1;
                 }
@@ -24,7 +28,7 @@ public class CheeseMongersItem
             {
                 Quality = Quality + 1;
 
-                if (Name == "Tasting with Chef Massimo")
+                if (isTastingWithMassimo)
                 {
                     if (ValidByDays < 15)
                     {
@@ -59,20 +63,20 @@ public class CheeseMongersItem
             }
         }
 
-        if (Name != "Caciocavallo Podolico")
+        if (!isCaciocavallo)
         {
             ValidByDays = ValidByDays - 1;
         }
 
         if (ValidByDays < 0)
         {
-            if (Name != "Parmigiano Regiano")
+            if (!isParmigiano)
             {
-                if (Name != "Tasting with Chef Massimo")
+                if (!isTastingWithMassimo)
                 {
                     if (Quality > 0)
                     {
-                        if (Name != "Caciocavallo Podolico")
+                        if (!isCaciocavallo)
                         {
                             if (Quality - 4 > 0)
                             {
