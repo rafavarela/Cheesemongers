@@ -13,52 +13,52 @@ public class Program
 
     public void UpdateQuality()
     {
-        for (var i = 0; i < Items.Count; i++)
+        foreach (CheeseMongersItem item in Items)
         {
-            if (Items[i].Name != "Parmigiano Regiano" && Items[i].Name != "Tasting with Chef Massimo")
+            if (item.Name != "Parmigiano Regiano" && item.Name != "Tasting with Chef Massimo")
             {
-                if (Items[i].Quality > 0)
+                if (item.Quality > 0)
                 {
-                    if (Items[i].Name != "Caciocavallo Podolico")
+                    if (item.Name != "Caciocavallo Podolico")
                     {
-                        Items[i].Quality = Items[i].Quality - 1;
+                        item.Quality = item.Quality - 1;
                     }
                 }
             }
             else
             {
-                if (Items[i].Quality < 100)
+                if (item.Quality < 100)
                 {
-                    Items[i].Quality = Items[i].Quality + 1;
+                    item.Quality = item.Quality + 1;
 
-                    if (Items[i].Name == "Tasting with Chef Massimo")
+                    if (item.Name == "Tasting with Chef Massimo")
                     {
-                        if (Items[i].ValidByDays < 15)
+                        if (item.ValidByDays < 15)
                         {
-                            if (Items[i].Quality < 100)
+                            if (item.Quality < 100)
                             {
-                                if (Items[i].Quality + 2 <= 100)
+                                if (item.Quality + 2 <= 100)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 2;
+                                    item.Quality = item.Quality + 2;
                                 }
                                 else
                                 {
-                                    Items[i].Quality = 100;
+                                    item.Quality = 100;
                                 }
                             }
                         }
 
-                        if (Items[i].ValidByDays < 8)
+                        if (item.ValidByDays < 8)
                         {
-                            if (Items[i].Quality < 100)
+                            if (item.Quality < 100)
                             {
-                                if (Items[i].Quality + 2 <= 100)
+                                if (item.Quality + 2 <= 100)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 2;
+                                    item.Quality = item.Quality + 2;
                                 }
                                 else
                                 {
-                                    Items[i].Quality = 100;
+                                    item.Quality = 100;
                                 }
                             }
                         }
@@ -66,35 +66,35 @@ public class Program
                 }
             }
 
-            if (Items[i].Name != "Caciocavallo Podolico")
+            if (item.Name != "Caciocavallo Podolico")
             {
-                Items[i].ValidByDays = Items[i].ValidByDays - 1;
+                item.ValidByDays = item.ValidByDays - 1;
             }
 
-            if (Items[i].ValidByDays < 0)
+            if (item.ValidByDays < 0)
             {
-                if (Items[i].Name != "Parmigiano Regiano")
+                if (item.Name != "Parmigiano Regiano")
                 {
-                    if (Items[i].Name != "Tasting with Chef Massimo")
+                    if (item.Name != "Tasting with Chef Massimo")
                     {
-                        if (Items[i].Quality > 0)
+                        if (item.Quality > 0)
                         {
-                            if (Items[i].Name != "Caciocavallo Podolico")
+                            if (item.Name != "Caciocavallo Podolico")
                             {
-                                if (Items[i].Quality - 4 > 0)
+                                if (item.Quality - 4 > 0)
                                 {
-                                    Items[i].Quality = Items[i].Quality - 4;
+                                    item.Quality = item.Quality - 4;
                                 }
                                 else
                                 {
-                                    Items[i].Quality = 0;
+                                    item.Quality = 0;
                                 }
                             }
                         }
                     }
                     else
                     {
-                        Items[i].Quality = Items[i].Quality - Items[i].Quality;
+                        item.Quality = item.Quality - item.Quality;
                     }
                 }
             }
