@@ -32,32 +32,12 @@ public class CheeseMongersItem
                 {
                     if (ValidByDays < 15)
                     {
-                        if (Quality < 100)
-                        {
-                            if (Quality + 2 <= 100)
-                            {
-                                Quality = Quality + 2;
-                            }
-                            else
-                            {
-                                Quality = 100;
-                            }
-                        }
+                        IncreaseQuality(2);
                     }
 
                     if (ValidByDays < 8)
                     {
-                        if (Quality < 100)
-                        {
-                            if (Quality + 2 <= 100)
-                            {
-                                Quality = Quality + 2;
-                            }
-                            else
-                            {
-                                Quality = 100;
-                            }
-                        }
+                        IncreaseQuality(2);
                     }
                 }
             }
@@ -93,6 +73,21 @@ public class CheeseMongersItem
                 {
                     Quality = 0;
                 }
+            }
+        }
+    }
+
+    private void IncreaseQuality(int amount)
+    {
+        if (Quality < 100)
+        {
+            if (Quality + amount <= 100)
+            {
+                Quality = Quality + amount;
+            }
+            else
+            {
+                Quality = 100;
             }
         }
     }
