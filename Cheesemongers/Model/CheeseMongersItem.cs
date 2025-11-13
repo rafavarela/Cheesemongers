@@ -11,59 +11,39 @@ public class CheeseMongersItem
         bool isParmigiano = Name == "Parmigiano Regiano";
         bool isTastingWithMassimo = Name == "Tasting with Chef Massimo";
         bool isCaciocavallo = Name == "Caciocavallo Podolico";
-
-        if (!isParmigiano && !isTastingWithMassimo)
+                
+        if (isParmigiano)
         {
-            if (!isCaciocavallo)
-            {
-                DecreaseQuality(1);
-            }
+            IncreaseAgedCheeseQuality();
         }
-        else
+        else if (isTastingWithMassimo)
         {
-            if (Quality < 100)
-            {
-                Quality = Quality + 1;
-
-                if (isTastingWithMassimo)
-                {
-                    if (ValidByDays < 15)
-                    {
-                        IncreaseQuality(2);
-                    }
-
-                    if (ValidByDays < 8)
-                    {
-                        IncreaseQuality(2);
-                    }
-                }
-            }
+            IncreaseEventCheeseQuality();
+        }
+        else if (!isCaciocavallo)
+        {
+            // Normal cheese decreases in quality
+            DecreaseQuality(1);
         }
 
         if (!isCaciocavallo)
         {
             ValidByDays = ValidByDays - 1;
         }
+                
+        if (ValidByDays >= 0) return;
 
-        if (ValidByDays < 0)
+        if (isParmigiano) return;
+
+        if (isTastingWithMassimo)
         {
-            if (!isParmigiano)
-            {
-                if (!isTastingWithMassimo)
-                {
-                    if (Quality > 0)
-                    {
-                        if (!isCaciocavallo)
-                        {
-                            DecreaseQuality(4);
-                        }
-                    }
-                }
-                else
-                {
-                    Quality = 0;
-                }
-            }
+            Quality = 0;
+            return;
+        }
+
+        if (!isCaciocavallo)
+        {
+            DecreaseQuality(4);
         }
     }
 
@@ -94,6 +74,25 @@ public class CheeseMongersItem
         if (Quality < 0)
         {
             Quality = 0;
+        }
+    }
+
+    private void IncreaseAgedCheeseQuality()
+    {
+        if (Quality < 100)
+        {
+            Quality = Quality + 1;
+        }
+    }
+
+    private void IncreaseEventCheeseQuality()
+    {
+        if (Quality < 100)
+        {
+            Quality = Quality + 1;
+
+            if (ValidByDays < 15) IncreaseQuality(2);
+            if (ValidByDays < 8) IncreaseQuality(2);
         }
     }
 }
