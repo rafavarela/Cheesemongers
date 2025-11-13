@@ -1,5 +1,5 @@
 ﻿using Cheesemongers.Application;
-using Cheesemongers.Application.Strategies;
+using Cheesemongers.Application.Factory;
 using CheeseMongers.Model;
 
 namespace Cheesemongers;
@@ -17,14 +17,7 @@ public class Program
     {
         foreach (CheeseMongersItem item in Items)
         {
-            IUpdateStrategy strategy = item.Name switch
-            {
-                "Parmigiano Regiano" => new ParmigianoRegianoStrategy(),
-                "Tasting with Chef Massimo" => new TastingWithMassimoStrategy(),
-                "Caciocavallo Podolico" => new CaciocavalloPodolicoStrategy(),
-                _ => new NormalCheeseStrategy()
-            };
-
+            IUpdateStrategy strategy = StrategyFactory.GetStrategyFor(item.Name);
             strategy.Update(item);
         }
     }
